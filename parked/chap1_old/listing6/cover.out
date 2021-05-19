@@ -1,0 +1,12 @@
+mode: set
+github.com/practicalgo/code/chap1/listing5/listing5.go:12.16,14.2 1 1
+github.com/practicalgo/code/chap1/listing5/listing5.go:16.33,20.13 4 1
+github.com/practicalgo/code/chap1/listing5/listing5.go:24.2,25.12 2 1
+github.com/practicalgo/code/chap1/listing5/listing5.go:20.13,23.3 2 1
+github.com/practicalgo/code/chap1/listing5/listing5.go:28.88,32.12 4 1
+github.com/practicalgo/code/chap1/listing5/listing5.go:36.2,36.9 1 1
+github.com/practicalgo/code/chap1/listing5/listing5.go:32.12,34.3 1 1
+github.com/practicalgo/code/chap1/listing5/listing5.go:37.20,38.19 1 1
+github.com/practicalgo/code/chap1/listing5/listing5.go:39.18,40.13 1 1
+github.com/practicalgo/code/chap1/listing5/listing5.go:44.13,50.16 6 0
+github.com/practicalgo/code/chap1/listing5/listing5.go:50.16,52.3 1 0
