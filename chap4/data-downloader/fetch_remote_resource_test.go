@@ -1,4 +1,3 @@
-// Listing 2.2
 package main
 
 import (
@@ -19,14 +18,14 @@ func TestFetchRemoteResource(t *testing.T) {
 	ts := startTestHTTPServer()
 	defer ts.Close()
 
-	expected := []byte("Hello World")
+	expected := "Hello World"
 
 	data, err := fetchRemoteResource(ts.URL)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if expected != data {
+	if expected != string(data) {
 		t.Errorf("Expected response to be: %s, Got: %s", expected, data)
 	}
 }

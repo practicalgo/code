@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "github.com/practicalgo/code/chap9/bidi-streaming/service";
+
+service Users {
+  rpc GetHelp (stream UserHelpRequest) returns (stream UserHelpReply) {}
+}
+
+message User {
+  string id = 1;
+}
+
+message UserHelpRequest {
+  User user = 1;
+  string request = 2;
+}
+
+message UserHelpReply {
+  string response = 1;
+}

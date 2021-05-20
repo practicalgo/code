@@ -21,25 +21,30 @@ func (s *dummyUserService) GetUser(
 ) (*users.UserGetReply, error) {
 	u := users.User{
 		Id:        "user-123-a",
-		FirstName: "Jane",
-		LastName:  "Doe", Age: 36,
+		FirstName: "jane",
+		LastName:  "doe",
+		Age:       36,
 	}
 	return &users.UserGetReply{User: &u}, nil
 }
 
-func startTestGrpcServer() *bufconn.Listener {
+func startTestGrpcServer() (*grpc.Server, *bufconn.Listener) {
 	l := bufconn.Listen(10)
 	s := grpc.NewServer()
 	users.RegisterUsersServer(s, &dummyUserService{})
 	go func() {
-		log.Fatal(s.Serve(l))
+		err := s.Serve(l)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}()
-	return l
+	return s, l
 }
 
 func TestGetUser(t *testing.T) {
 
-	l := startTestGrpcServer()
+	s, l := startTestGrpcServer()
+	defer s.GracefulStop()
 
 	bufconnDialer := func(
 		ctx context.Context, addr string,
@@ -65,13 +70,12 @@ func TestGetUser(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if result.User.FirstName != "Jane" ||
-		result.User.LastName != "Doe" {
+	if result.User.FirstName != "jane" ||
+		result.User.LastName != "doe" {
 		t.Fatalf(
-			"Expected: Jane Doe, Got: %s %s",
+			"Expected: jane doe, Got: %s %s",
 			result.User.FirstName,
 			result.User.LastName,
 		)
 	}
-
 }

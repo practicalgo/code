@@ -11,18 +11,22 @@ import (
 	"google.golang.org/grpc/test/bufconn"
 )
 
-func startTestGrpcServer() *bufconn.Listener {
+func startTestGrpcServer() (*grpc.Server, *bufconn.Listener) {
 	l := bufconn.Listen(10)
 	s := grpc.NewServer()
 	registerServices(s)
 	go func() {
-		log.Fatal(startServer(s, l))
+		err := startServer(s, l)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}()
-	return l
+	return s, l
 }
 func TestUserService(t *testing.T) {
 
-	l := startTestGrpcServer()
+	s, l := startTestGrpcServer()
+	defer s.GracefulStop()
 
 	bufconnDialer := func(
 		ctx context.Context, addr string,
@@ -41,15 +45,18 @@ func TestUserService(t *testing.T) {
 	usersClient := users.NewUsersClient(client)
 	resp, err := usersClient.GetUser(
 		context.Background(),
-		&users.UserGetRequest{Id: "foo-bar"},
+		&users.UserGetRequest{
+			Email: "jane@doe.com",
+			Id:    "foo-bar",
+		},
 	)
 
 	if err != nil {
 		t.Fatal(err)
 	}
-	if resp.User.FirstName != "Jane" {
+	if resp.User.FirstName != "jane" {
 		t.Errorf(
-			"Expected FirstName to be: Jane, Got: %s",
+			"Expected FirstName to be: jane, Got: %s",
 			resp.User.FirstName,
 		)
 	}

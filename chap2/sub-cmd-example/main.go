@@ -1,4 +1,3 @@
-// Listing 2.1: chap2/sub-cmd-example/main.go
 package main
 
 import (

@@ -1,4 +1,3 @@
-// pkg registration with form data
 package pkgregister
 
 import (

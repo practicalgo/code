@@ -1,4 +1,3 @@
-//Listing 1.10: chap1/listing3/run_cmd_test.go
 package main
 
 import (

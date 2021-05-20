@@ -1,4 +1,3 @@
-//Listing 1.6: chap1/listing3/parse_args_test.go
 package main
 
 import (

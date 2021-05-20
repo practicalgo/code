@@ -1,4 +1,3 @@
-// Listing 1.14: chap1/listing5/cmd/httpCmd.go
 package cmd
 
 import (

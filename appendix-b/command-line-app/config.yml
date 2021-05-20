@@ -1,0 +1,7 @@
+---
+server:
+  auth_token: ${X_AUTH_TOKEN}
+telemetry:
+  log_level: ${LOG_LEVEL:1}
+  jaeger_addr: http://jaeger:14268
+  statsd_addr: statsd:9125

@@ -17,13 +17,13 @@ for root, dirs, files in os.walk(sys.argv[1]):
         if '.go' in f:
             src_dir = root
             break
-    if not src_dir:
+    if not src_dir or "parked" in src_dir or "solutions" in src_dir or "service" in src_dir:
+        print("Ignoring: {0}".format(src_dir))
         continue
-    try:
+    try:        
         subprocess.check_output(["go", "vet"], cwd=src_dir,
                 stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
         print('Vet failure: {0}'.format(src_dir))
         failed = 1
-
 sys.exit(failed)

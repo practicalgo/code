@@ -1,3 +1,3 @@
 module github.com/practicalgo/code/chap6/complex-server
 
-go 1.15
+go 1.16

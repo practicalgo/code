@@ -6,41 +6,30 @@ import (
 )
 
 func TestValidateArgs(t *testing.T) {
-	type expectedResult struct {
+	tests := []struct {
+		c   config
 		err error
-	}
-	type testConfig struct {
-		c      config
-		result expectedResult
-	}
-	tests := []testConfig{
-		testConfig{
-			c: config{},
-			result: expectedResult{
-				err: errors.New("Must specify a number greater than 0"),
-			},
+	}{
+		{
+			c:   config{},
+			err: errors.New("Must specify a number greater than 0"),
 		},
-		testConfig{
-			c: config{numTimes: -1},
-			result: expectedResult{
-				err: errors.New("Must specify a number greater than 0"),
-			},
+		{
+			c:   config{numTimes: -1},
+			err: errors.New("Must specify a number greater than 0"),
 		},
-
-		testConfig{
-			c: config{numTimes: 10},
-			result: expectedResult{
-				err: nil,
-			},
+		{
+			c:   config{numTimes: 10},
+			err: nil,
 		},
 	}
 
 	for _, tc := range tests {
 		err := validateArgs(tc.c)
-		if tc.result.err != nil && err.Error() != tc.result.err.Error() {
-			t.Errorf("Expected error to be: %v, got: %v\n", tc.result.err, err)
+		if tc.err != nil && err.Error() != tc.err.Error() {
+			t.Errorf("Expected error to be: %v, got: %v\n", tc.err, err)
 		}
-		if tc.result.err == nil && err != nil {
+		if tc.err == nil && err != nil {
 			t.Errorf("Expected nil error, got: %v\n", err)
 		}
 	}

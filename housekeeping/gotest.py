@@ -16,7 +16,8 @@ for root, dirs, files in os.walk(sys.argv[1]):
         if '.go' in f:
             src_dir = root
             break
-    if not src_dir:
+    if not src_dir or "parked" in src_dir or "solutions" in src_dir or "service" in src_dir:
+        print("Ignoring: {0}".format(src_dir))
         continue
     try:
         subprocess.check_output(["go", "test", "-v"], cwd=src_dir,

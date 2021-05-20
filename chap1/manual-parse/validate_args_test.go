@@ -1,4 +1,3 @@
-//Listing 1.3: chap1/listing1/validate_args_test.go
 package main
 
 import (

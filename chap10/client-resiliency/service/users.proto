@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "github.com/practicalgo/code/chap10/client-resiliency/service/users";
+
+service Users {
+  rpc GetUser (UserGetRequest) returns (UserGetReply) {}
+  rpc GetHelp (stream UserHelpRequest) returns (stream UserHelpReply) {}
+}
+
+message UserGetRequest {
+  string email = 1;
+  string id = 2;  
+}
+
+message User {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  int32 age = 4;
+}
+
+message UserGetReply {
+  User user = 1;
+}
+
+message UserHelpRequest {
+  User user = 1;
+  string request = 2;
+}
+
+message UserHelpReply {
+  string response = 1;
+}

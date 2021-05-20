@@ -1,4 +1,3 @@
-// Listing 1.8: chap1/listing3/main.go
 package main
 
 import (

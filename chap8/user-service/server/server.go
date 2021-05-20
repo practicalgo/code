@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"errors"
 	"log"
 	"net"
 	"os"
+	"strings"
 
 	users "github.com/practicalgo/code/chap8/user-service/service"
 	"google.golang.org/grpc"
@@ -18,8 +20,21 @@ func (s *userService) GetUser(
 	ctx context.Context,
 	in *users.UserGetRequest,
 ) (*users.UserGetReply, error) {
-	log.Printf("Received request for user with Email: %s Id: %s\n", in.Email, in.Id)
-	u := users.User{Id: "user-123-a", FirstName: "Jane", LastName: "Doe", Age: 36}
+	log.Printf(
+		"Received request for user with Email: %s Id: %s\n",
+		in.Email,
+		in.Id,
+	)
+	components := strings.Split(in.Email, "@")
+	if len(components) != 2 {
+		return nil, errors.New("invalid email address")
+	}
+	u := users.User{
+		Id:        in.Id,
+		FirstName: components[0],
+		LastName:  components[1],
+		Age:       36,
+	}
 	return &users.UserGetReply{User: &u}, nil
 }
 

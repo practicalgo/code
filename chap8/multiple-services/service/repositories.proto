@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "users.proto";
+
+option go_package = "github.com/practicalgo/code/chap8/multiple-services/service";
+
+service Repo {
+  rpc GetRepos (RepoGetRequest) returns (RepoGetReply) {}
+}
+
+message RepoGetRequest {
+  string id = 2;  
+  string creator_id = 1;
+}
+
+message Repository {
+  string id = 1;
+  string name = 2;
+  string url = 3;  
+  User owner = 4;
+}
+
+message RepoGetReply {
+  repeated Repository repo = 1;
+}

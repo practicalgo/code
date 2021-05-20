@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "github.com/practicalgo/code/appendix-b/grpc-server/service";
+
+service Users {
+  rpc GetUser (UserGetRequest) returns (UserGetReply) {}
+}
+
+message UserGetRequest {
+  string auth = 1;
+}
+
+message User {
+  int32 id = 1;
+}
+
+message UserGetReply {
+  User user = 1;
+}
