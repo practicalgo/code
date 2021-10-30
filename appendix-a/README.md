@@ -56,7 +56,7 @@ The key, is the second endpoint, which tells us that it can read the data from t
 
 Next, visit the URL http://127.0.0.1:16686/search from your browser - this should show you the Jaeger Web UI:
 
-![Jaeger screenshot](./jaeger_screenshot.png "Jaeger Web UI")
+![Jaeger screenshot](./jaeger_screenshot.PNG "Jaeger Web UI")
 
 ## Run the gRPC server
 
@@ -189,7 +189,7 @@ $
 Now, go to the Jaeger Web UI: http://127.0.0.1:16686/search in your browser, select `PkgServer-Cli` from the Service drop down box
 on the top left and click on "Find Traces". You should see trace data from your applications.
 
-![Jaeger screenshot](./jaeger_traces_screenshot.png "Jaeger Web UI with traces")
+![Jaeger screenshot](./jaeger_traces_screenshot.PNG "Jaeger Web UI with traces")
 
 ## Viewing the metrics
 
