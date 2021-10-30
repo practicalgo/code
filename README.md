@@ -1,6 +1,8 @@
 # Source code for Practical Go
 
-![Go](https://github.com/practicalgolang/code/workflows/Go/badge.svg)
+[![Static Analysis and Test](https://github.com/practicalgo/code/actions/workflows/golint_test.yml/badge.svg)](https://github.com/practicalgo/code/actions/workflows/golint_test.yml)
+
+This repository contains code listings for the book [Practical Go -  Building Scalable Network and Non-Network Applications](https://practicalgobook.net/).
 
 ## Code
 
