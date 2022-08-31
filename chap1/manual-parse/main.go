@@ -24,7 +24,7 @@ func printUsage(w io.Writer) {
 }
 
 func validateArgs(c config) error {
-	if !(c.numTimes > 0) {
+	if c.numTimes <= 0 && !c.printUsage {
 		return errors.New("Must specify a number greater than 0")
 	}
 	return nil
