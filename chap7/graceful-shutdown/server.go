@@ -35,7 +35,13 @@ func shutDown(ctx context.Context, s *http.Server, waitForShutdownCompletion cha
 	signal.Notify(sigch, syscall.SIGINT, syscall.SIGTERM)
 	sig := <-sigch
 	log.Printf("Got signal: %v . Server shutting down.", sig)
-	if err := s.Shutdown(ctx); err != nil {
+
+	childCtx, cancel := context.WithTimeout(
+		ctx, 30*time.Second,
+	)
+	defer cancel()
+
+	if err := s.Shutdown(childCtx); err != nil {
 		log.Printf("Error during shutdown: %v", err)
 	}
 	waitForShutdownCompletion <- struct{}{}
@@ -48,11 +54,6 @@ func main() {
 	}
 
 	waitForShutdownCompletion := make(chan struct{})
-	ctx, cancel := context.WithTimeout(
-		context.Background(), 30*time.Second,
-	)
-	defer cancel()
-
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/users/", handleUserAPI)
 
@@ -61,7 +62,7 @@ func main() {
 		Handler: mux,
 	}
 
-	go shutDown(ctx, &s, waitForShutdownCompletion)
+	go shutDown(context.Background(), &s, waitForShutdownCompletion)
 
 	err := s.ListenAndServe()
 	log.Print(
